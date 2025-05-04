@@ -2,6 +2,7 @@ package com.signwave.signwave.controller;
 
 import com.signwave.signwave.dto.GestureSequenceRequest;
 import com.signwave.signwave.dto.GestureTranslationResponse;
+import com.signwave.signwave.service.GestureTranslationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
