@@ -81,4 +81,8 @@ public class GestureTranslationService {
         // 8. 최종 결과 문장을 컨트롤러로 반환
         return sentence;
     }
+
+    public String getTranslatedSentence(List<List<Float>> sequence) {
+        return translateAndSave(sequence, null);
+    }
 }
