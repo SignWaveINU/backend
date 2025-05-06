@@ -1,13 +1,16 @@
 package com.signwave.signwave.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
 @Getter
+@Builder // 추가
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor // Builder용 생성자
 public class Member extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
