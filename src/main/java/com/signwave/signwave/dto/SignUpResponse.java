@@ -1,10 +1,12 @@
 package com.signwave.signwave.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-public class SignUpRequest {
+@AllArgsConstructor
+public class SignUpResponse {
+    private Long id;
     private String email;
     private String nickname;
-    private String password;
 }
