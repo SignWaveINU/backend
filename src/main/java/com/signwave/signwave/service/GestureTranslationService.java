@@ -40,7 +40,7 @@ public class GestureTranslationService {
                     Member dummy = Member.builder()
                             .email("test@dummy.com")
                             .password("dummy")      // 보안 상 사용하지 않는 값
-                            .nickname("dummy")      // ⚠ nickname은 not null + unique
+                            .nickname("dummy")
                             .build();
                     return memberRepository.save(dummy);
                 });
