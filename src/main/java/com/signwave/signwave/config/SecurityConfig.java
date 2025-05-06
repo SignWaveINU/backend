@@ -17,14 +17,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @RequiredArgsConstructor
 @Configuration
-@SecuritySchemes({
-        @SecurityScheme(
-                name = "JWT",
-                type = SecuritySchemeType.HTTP,
-                scheme = "bearer",
-                bearerFormat = "JWT"
-        )
-})
 public class SecurityConfig {
 
     private final JwtTokenProvider jwtTokenProvider;
