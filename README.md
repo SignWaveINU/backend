@@ -7,24 +7,29 @@ Android 앱과 연동되어 번역 결과 저장, 즐겨찾기, 회원 기능 �
 
 ## 🚀 실행 방법 (로컬)
 
-1. signwave 프로젝트, signwave-ai 한 폴더ex)Spring_Project안에 넣기
-2. Spring_Project폴더에 signwave-compose 폴더 생성
+### 1. signwave 프로젝트, signwave-ai 한 폴더ex)Spring_Project안에 넣기
+
+### 2. Spring_Project폴더에 signwave-compose 폴더 생성
 ![image](https://github.com/user-attachments/assets/420516e5-103e-41cb-8303-8b4f0cef2a7b)
-3.  signwave-compose 폴더에 docker-compose-yml파일 생성
+
+### 3.  signwave-compose 폴더에 docker-compose-yml파일 생성
 ![image](https://github.com/user-attachments/assets/941c333d-2b1f-49b6-aff8-897429982b68)
-4. docker-compose-yml파일에 코드 넣기 코드는 signwave 노션에 자료->docker-compose-yml 에 있음
+
+### 4. docker-compose-yml파일에 코드 넣기 코드는 signwave 노션에 자료->docker-compose-yml 에 있음
 ![image](https://github.com/user-attachments/assets/3c5ee658-f1ac-4b20-b45b-69bb770a0c5c)
-5.signwave 프로젝트에 .env파일 추가 코드는 노션에 자료->singwave->.env 파일에 있음
+
+### 5.signwave 프로젝트에 .env파일 추가 코드는 노션에 자료->singwave->.env 파일에 있음
 ![image](https://github.com/user-attachments/assets/f6a23de9-9865-4010-8b59-82d05b27b37d)
-6.singnwave-ai 프로젝트에 .env파일 추가 코드는 노션에 자료->singwave-ai->.env 파일에 있음
+
+### 6.singnwave-ai 프로젝트에 .env파일 추가 코드는 노션에 자료->singwave-ai->.env 파일에 있음
 ![image](https://github.com/user-attachments/assets/aebbdb26-6c0d-47a7-ba6c-104b5b254bd3)
-7.D:\Spring_Project\signwave-compose 경로로 cmd실행
+### 7.D:\Spring_Project\signwave-compose 경로로 cmd실행
 ![image](https://github.com/user-attachments/assets/f2539cf1-3800-4c55-bc67-bf1aa5c0228d)
-8.docker-compose up --build실행
+### 8.docker-compose up --build실행
 ![image](https://github.com/user-attachments/assets/2db3a328-7eef-4dfe-9f36-de80a167593d)
-9.최초실행이 아닌 경우 docker-compose down 해준 후에 docker-compose up --build실행
+### 9.최초실행이 아닌 경우 docker-compose down 해준 후에 docker-compose up --build실행
 ![image](https://github.com/user-attachments/assets/7adf52fc-718d-40a6-84c3-5732da9cb3e4)
-10.http://localhost:8080/swagger-ui/index.html여기에 들어가면 스웨거 테스트 가능
+### 10.http://localhost:8080/swagger-ui/index.html여기에 들어가면 스웨거 테스트 가능
 ![image](https://github.com/user-attachments/assets/d4d28db1-b4fe-47dc-a74e-854e06d52e77)
-11.spring서버에서 fast api에 있는 api 다 가져와서 필요는 없겠지만 fast api 테스트 해보고싶으면 http://localhost:8000/docs여기에서 가능
+### 11.spring서버에서 fast api에 있는 api 다 가져와서 필요는 없겠지만 fast api 테스트 해보고싶으면 http://localhost:8000/docs여기에서 가능
 ![image](https://github.com/user-attachments/assets/da31936d-40ec-4089-af35-02df3fafbad5)
