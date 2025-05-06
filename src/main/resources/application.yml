@@ -4,7 +4,7 @@ spring:
     username: sign_user
     password: sign_pass
   config:
-    import: optional:file:.env
+    import: optional:env[.env]
 
   jpa:
     hibernate:
@@ -16,7 +16,4 @@ spring:
 
 server:
   port: 8080
-
-ai:
-  url: http://ai:8000
 
