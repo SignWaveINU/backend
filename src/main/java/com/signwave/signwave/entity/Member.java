@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Getter
-@Builder // 추가
+@Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor // Builder용 생성자
 public class Member extends BaseEntity{
