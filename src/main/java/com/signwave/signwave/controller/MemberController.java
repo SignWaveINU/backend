@@ -1,5 +1,7 @@
 package com.signwave.signwave.controller;
 
+import com.signwave.signwave.dto.LoginRequest;
+import com.signwave.signwave.dto.LoginResponse;
 import com.signwave.signwave.dto.SignUpRequest;
 import com.signwave.signwave.dto.SignUpResponse;
 import com.signwave.signwave.service.MemberService;
@@ -24,4 +26,12 @@ public class MemberController {
         SignUpResponse response = memberService.register(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
+
+    @PostMapping("/login")
+    @Operation(summary = "로그인", description = "이메일과 비밀번호로 로그인하여 JWT 토큰을 반환합니다.")
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
+        LoginResponse response = memberService.login(request);
+        return ResponseEntity.ok(response);
+    }
+
 }
