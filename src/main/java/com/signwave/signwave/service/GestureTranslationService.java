@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.List;
 import java.util.Map;
@@ -33,19 +35,15 @@ public class GestureTranslationService {
      * 제스처 시퀀스를 번역하고 DB에 저장하며, 번역 문장을 반환
      */
     public String getTranslatedSentence(List<List<Float>> sequence) {
-        // 1. 더미 사용자 이메일 기준으로 찾거나
-        Member member = memberRepository.findByEmail("test@dummy.com")
-                .orElseGet(() -> {
-                    // 2. 없으면 생성 후 저장
-                    Member dummy = Member.builder()
-                            .email("test@dummy.com")
-                            .password("dummy")      // 보안 상 사용하지 않는 값
-                            .nickname("dummy")
-                            .build();
-                    return memberRepository.save(dummy);
-                });
+        // 🔐 JWT로부터 이메일 꺼내기
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
 
-        // 3. 번역 및 저장
+        // 🔍 해당 이메일로 회원 정보 조회
+        Member member = memberRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("해당 이메일의 회원을 찾을 수 없습니다."));
+
+        // 🚀 번역 및 저장
         return translateAndSave(sequence, member);
     }
 
