@@ -24,4 +24,9 @@ public class TranslationHistory extends BaseEntity {
     private Member member;
 
     private boolean isFavorite;
+
+    // 즐겨찾기 여부 설정 메서드 추가
+    public void setFavorite(boolean isFavorite) {
+        this.isFavorite = isFavorite;
+    }
 }
