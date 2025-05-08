@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://db:5432/sign_db
+    url: jdbc:postgresql://db:5432/sign_db?autoCommit=false
     username: sign_user
     password: sign_pass
   config:
@@ -8,11 +8,14 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create  # ★ 여기를 update → create 로 변경
     show-sql: true
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          lob:
+            non_contextual_creation: true  # ★ LOB 스트리밍 방지 옵션 추가
 
 server:
   port: 8080
