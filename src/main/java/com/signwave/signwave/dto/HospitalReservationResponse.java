@@ -12,6 +12,6 @@ import java.time.LocalDate;
 public class HospitalReservationResponse {
     private Long reservationId;
     private String hospitalName;
-    private LocalDate reservationDate;
-    private String reservationTime;
+    private String reservationDate; // "2025-05-09"
+    private String reservationTime;    // "15:30"
 }
