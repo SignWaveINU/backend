@@ -33,3 +33,17 @@ Android 앱과 연동되어 번역 결과 저장, 즐겨찾기, 회원 기능 �
 ![image](https://github.com/user-attachments/assets/d4d28db1-b4fe-47dc-a74e-854e06d52e77)
 ### 11.spring서버에서 fast api에 있는 api 다 가져와서 필요는 없겠지만 fast api 테스트 해보고싶으면 http://localhost:8000/docs여기에서 가능
 ![image](https://github.com/user-attachments/assets/da31936d-40ec-4089-af35-02df3fafbad5)
+
+-테스트 방법
+1.회원가입
+2.로그인 하면 토큰이 나오는데 그걸 복사하기
+![image](https://github.com/user-attachments/assets/35e84e33-d332-4691-899a-ce3ac641d07e)
+3.토큰 복사한거 /translate에서 오른쪽에 있는 자물쇠 모양 클릭
+![image](https://github.com/user-attachments/assets/6012bbd6-976b-4830-b12e-b3cb51dfe5f8)
+4. value에 토큰 넣기
+![image](https://github.com/user-attachments/assets/55172b02-7083-42a8-88b7-504d39c15a17)
+5.즐겨찾기 등록, 번역기록 전체 조회하고 싶으면 /translate 먼저 테스트해야함
+![image](https://github.com/user-attachments/assets/70ef5a69-4276-4d77-a865-80f303f3664e)
+
+
+
