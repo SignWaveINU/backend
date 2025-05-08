@@ -15,7 +15,7 @@ public class TranslationHistory extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "sign_language_translation_id", nullable = false)
     private SignLanguageTranslation signLanguageTranslation;
 
