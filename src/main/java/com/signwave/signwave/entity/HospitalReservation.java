@@ -27,6 +27,10 @@ public class HospitalReservation {
     @Column(nullable = false)
     private LocalDateTime reservationTime;
 
+    @Column(nullable = false)
+    private LocalDate reservationDate;
+
+
     public void update(String hospitalName, LocalDateTime reservationTime) {
         this.hospitalName = hospitalName;
         this.reservationTime = reservationTime;
