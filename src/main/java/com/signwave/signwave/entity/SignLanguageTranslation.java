@@ -20,7 +20,7 @@ public class SignLanguageTranslation extends BaseEntity {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @Lob
+    @Column(columnDefinition = "TEXT")
     private String signLanguageInput;  // 수어 입력 데이터 (예: JSON 등)
 
     private String translatedText;
