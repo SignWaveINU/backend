@@ -8,13 +8,13 @@ import lombok.Getter;
 @Builder
 public class TranslationHistoryResponse {
 
-    private Long id;
+    private Long translationHistoryId;
     private String translatedText;
     private boolean isFavorite;
 
     public static TranslationHistoryResponse fromEntity(TranslationHistory history) {
         return TranslationHistoryResponse.builder()
-                .id(history.getId())
+                .translationHistoryId(history.getId())
                 .translatedText(history.getSignLanguageTranslation().getTranslatedText())
                 .isFavorite(history.isFavorite())
                 .build();
