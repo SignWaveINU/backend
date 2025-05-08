@@ -8,6 +8,7 @@ import com.signwave.signwave.entity.TranslationHistory;
 import com.signwave.signwave.repository.TranslationHistoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -33,6 +34,7 @@ public class TranslationHistoryService {
      * @param member 현재 로그인된 사용자
      * @return 해당 사용자의 번역기록 리스트 (TranslationHistoryResponse)
      */
+    @Transactional(readOnly = true)
     public List<TranslationHistoryResponse> getAllHistoriesByMember(Member member) {
         return historyRepository.findByMember(member).stream()
                 .map(TranslationHistoryResponse::fromEntity)
