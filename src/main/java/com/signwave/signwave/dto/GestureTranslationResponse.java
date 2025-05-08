@@ -8,4 +8,5 @@ public class GestureTranslationResponse {
 
     @Schema(description = "자연어로 변환된 문장", example = "병원에 가고 싶어요")
     private String sentence;
+
 }
