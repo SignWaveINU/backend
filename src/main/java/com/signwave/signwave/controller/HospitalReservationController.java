@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/reservations")
 @RequiredArgsConstructor
@@ -35,7 +37,7 @@ public class HospitalReservationController {
 
     @DeleteMapping("/{reservationId}")
     @Operation(summary = "병원 예약 삭제", description = "로그인한 사용자가 병원 예약을 삭제합니다.")
-    public ResponseEntity<Void> deleteReservation(
+    public ResponseEntity<Map<String, String>> deleteReservation(
             @PathVariable Long reservationId,
             Authentication authentication) {
 
@@ -44,7 +46,10 @@ public class HospitalReservationController {
                 .orElseThrow(() -> new IllegalArgumentException("해당 이메일의 사용자를 찾을 수 없습니다."));
 
         reservationService.deleteReservation(reservationId, member);
-        return ResponseEntity.noContent().build();
+
+        Map<String, String> response = Map.of("message", "병원 예약이 성공적으로 삭제되었습니다.");
+        return ResponseEntity.ok(response);
     }
+
 
 }
