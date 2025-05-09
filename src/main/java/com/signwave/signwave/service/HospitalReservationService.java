@@ -7,6 +7,7 @@ import com.signwave.signwave.entity.Member;
 import com.signwave.signwave.repository.HospitalReservationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.format.DateTimeFormatter;
 
@@ -42,4 +43,17 @@ public class HospitalReservationService {
                 .build();
 
     }
+
+    @Transactional
+    public void deleteReservation(Long reservationId, Member member) {
+        HospitalReservation reservation = reservationRepository.findById(reservationId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 ID의 예약이 존재하지 않습니다."));
+
+        if (!reservation.getMember().getId().equals(member.getId())) {
+            throw new IllegalArgumentException("해당 예약을 삭제할 권한이 없습니다.");
+        }
+
+        reservationRepository.delete(reservation);
+    }
+
 }
