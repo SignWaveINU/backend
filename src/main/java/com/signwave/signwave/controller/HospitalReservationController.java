@@ -32,4 +32,19 @@ public class HospitalReservationController {
         HospitalReservationResponse response = reservationService.createReservation(request, member);
         return ResponseEntity.ok(response);
     }
+
+    @DeleteMapping("/{reservationId}")
+    @Operation(summary = "병원 예약 삭제", description = "로그인한 사용자가 병원 예약을 삭제합니다.")
+    public ResponseEntity<Void> deleteReservation(
+            @PathVariable Long reservationId,
+            Authentication authentication) {
+
+        String email = (String) authentication.getPrincipal();
+        Member member = memberRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("해당 이메일의 사용자를 찾을 수 없습니다."));
+
+        reservationService.deleteReservation(reservationId, member);
+        return ResponseEntity.noContent().build();
+    }
+
 }
