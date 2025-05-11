@@ -7,6 +7,7 @@ import com.signwave.signwave.entity.TranslationHistory;
 import com.signwave.signwave.repository.MemberRepository;
 import com.signwave.signwave.repository.SignLanguageTranslationRepository;
 import com.signwave.signwave.repository.TranslationHistoryRepository;
+import com.signwave.signwave.util.S3Uploader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -17,6 +18,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -26,72 +28,68 @@ public class GestureTranslationService {
     private final SignLanguageTranslationRepository translationRepo;
     private final TranslationHistoryRepository historyRepo;
     private final MemberRepository memberRepository;
+    private final S3Uploader s3Uploader; // S3에 업로드하기 위한 유틸 클래스 주입
 
-    // FastAPI 서버 주소 (application.yml 등에서 주입)
     @Value("${ai.url}")
-    private String aiUrl;
+    private String aiUrl; // FastAPI 서버 주소
 
     /**
-     * 제스처 시퀀스를 번역하고 DB에 저장하며, 번역 문장을 반환
+     * 현재 로그인된 사용자의 이메일을 바탕으로 제스처 시퀀스를 번역
+     * 번역 결과를 저장하고, 자연어 문장을 반환
      */
     public String getTranslatedSentence(List<List<Float>> sequence) {
-        // 🔐 JWT로부터 이메일 꺼내기
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
 
-        // 🔍 해당 이메일로 회원 정보 조회
         Member member = memberRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("해당 이메일의 회원을 찾을 수 없습니다."));
 
-        // 🚀 번역 및 저장
         return translateAndSave(sequence, member);
     }
 
     /**
-     * FastAPI에 제스처를 전달해 번역 결과를 받아오고 DB에 저장
+     * FastAPI에 제스처 시퀀스를 전달하고, 반환된 문장 및 음성(mp3)을 처리하여 저장
      */
     public String translateAndSave(List<List<Float>> sequence, Member member) {
-        // 1. FastAPI 요청 바디
+        // 🔹 FastAPI 요청 바디 구성
         Map<String, Object> body = Map.of("sequence", sequence);
 
-        // 2. HTTP 요청 헤더
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-
-        // 3. 요청 엔티티 구성
         HttpEntity<?> request = new HttpEntity<>(body, headers);
 
-        // 4. FastAPI 호출
+        // 🔹 FastAPI 호출 (문장 + 음성 base64 반환)
         ResponseEntity<GestureTranslationResponse> response = restTemplate.postForEntity(
                 aiUrl + "/predict_gesture_and_translate",
                 request,
                 GestureTranslationResponse.class
         );
 
-        // 5. 결과 문장 추출
         String sentence = response.getBody().getSentence();
+        String audioBase64 = response.getBody().getAudioBase64();
 
-        // 6. SignLanguageTranslation 저장
+        // 🔹 mp3 파일을 S3에 업로드하고 URL 획득
+        String filename = "tts/" + UUID.randomUUID() + ".mp3";
+        String s3Url = s3Uploader.uploadBase64Audio(audioBase64, filename);
+
+        // 🔹 번역 결과 저장 (문장 + 음성 URL)
         SignLanguageTranslation translation = SignLanguageTranslation.builder()
                 .member(member)
                 .translatedText(sentence)
+                .audioUrl(s3Url)
                 .signLanguageInput("시퀀스 생략")
                 .gestureSequence("제스처 생략")
-                .translatedAudio(null)
                 .build();
-
         translationRepo.save(translation);
 
-        // 7. TranslationHistory 저장
+        // 🔹 번역 기록 저장
         TranslationHistory history = TranslationHistory.builder()
                 .signLanguageTranslation(translation)
                 .member(member)
                 .isFavorite(false)
                 .build();
-
         historyRepo.save(history);
 
-        // 8. 최종 번역 문장 반환
         return sentence;
     }
 }
