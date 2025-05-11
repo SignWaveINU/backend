@@ -42,4 +42,15 @@ public class TranslationHistoryController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/favorites")
+    @Operation(summary = "즐겨찾기 번역기록 조회", description = "로그인한 사용자의 즐겨찾기된 번역기록을 최신순으로 조회합니다.")
+    public ResponseEntity<List<TranslationHistoryResponse>> getFavoriteHistories(Authentication authentication) {
+        String email = (String) authentication.getPrincipal();
+        Member member = memberRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
+        List<TranslationHistoryResponse> response = historyService.getFavoriteHistoriesByMember(member);
+        return ResponseEntity.ok(response);
+    }
+
+
 }
