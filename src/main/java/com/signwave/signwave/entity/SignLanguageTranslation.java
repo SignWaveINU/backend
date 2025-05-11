@@ -25,7 +25,7 @@ public class SignLanguageTranslation extends BaseEntity {
 
     private String translatedText;
 
-    private String translatedAudio;
+    private String audioUrl;
 
     @Column(columnDefinition = "TEXT")
     private String gestureSequence;
