@@ -28,16 +28,16 @@ public class GestureTranslationService {
     private final SignLanguageTranslationRepository translationRepo;
     private final TranslationHistoryRepository historyRepo;
     private final MemberRepository memberRepository;
-    private final S3Uploader s3Uploader; // S3에 업로드하기 위한 유틸 클래스 주입
+    private final S3Uploader s3Uploader; // ✅ S3에 업로드하기 위한 유틸 클래스 주입
 
     @Value("${ai.url}")
-    private String aiUrl; // FastAPI 서버 주소
+    private String aiUrl; // ✅ FastAPI 서버 주소
 
     /**
      * 현재 로그인된 사용자의 이메일을 바탕으로 제스처 시퀀스를 번역
-     * 번역 결과를 저장하고, 자연어 문장을 반환
+     * 번역 결과를 저장하고, 자연어 문장과 음성 URL을 포함한 응답 반환
      */
-    public String getTranslatedSentence(List<List<Float>> sequence) {
+    public GestureTranslationResponse getTranslatedSentence(List<List<Float>> sequence) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
 
@@ -49,8 +49,9 @@ public class GestureTranslationService {
 
     /**
      * FastAPI에 제스처 시퀀스를 전달하고, 반환된 문장 및 음성(mp3)을 처리하여 저장
+     * S3에 업로드한 URL을 포함한 응답을 구성하여 반환
      */
-    public String translateAndSave(List<List<Float>> sequence, Member member) {
+    public GestureTranslationResponse translateAndSave(List<List<Float>> sequence, Member member) {
         // 🔹 FastAPI 요청 바디 구성
         Map<String, Object> body = Map.of("sequence", sequence);
 
@@ -90,6 +91,10 @@ public class GestureTranslationService {
                 .build();
         historyRepo.save(history);
 
-        return sentence;
+        // 🔹 최종 응답 구성
+        GestureTranslationResponse result = new GestureTranslationResponse();
+        result.setSentence(sentence);
+        result.setAudioBase64(s3Url); // 실제로는 audioUrl이지만 기존 필드 재사용
+        return result;
     }
 }
