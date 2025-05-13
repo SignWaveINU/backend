@@ -39,10 +39,7 @@ public class GestureTranslationService {
      */
     public GestureTranslationResponse getTranslatedSentence(List<List<Float>> sequence) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-
-        Member member = memberRepository.findByEmail(email)
-                .orElseThrow(() -> new IllegalArgumentException("해당 이메일의 회원을 찾을 수 없습니다."));
+        Member member = (Member) authentication.getPrincipal(); // ✅ principal에서 직접 꺼냄
 
         return translateAndSave(sequence, member);
     }
