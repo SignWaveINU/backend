@@ -67,7 +67,7 @@ public class GestureTranslationService {
         );
 
         String sentence = response.getBody().getSentence();
-        String audioBase64 = response.getBody().getAudioBase64();
+        String audioBase64 = response.getBody().getAudioUrl();
 
         // 🔹 mp3 파일을 S3에 업로드하고 URL 획득
         String filename = "tts/" + UUID.randomUUID() + ".mp3";
@@ -94,7 +94,7 @@ public class GestureTranslationService {
         // 🔹 최종 응답 구성
         GestureTranslationResponse result = new GestureTranslationResponse();
         result.setSentence(sentence);
-        result.setAudioBase64(s3Url); // 실제로는 audioUrl이지만 기존 필드 재사용
+        result.setAudioUrl(s3Url); // 실제로는 audioUrl이지만 기존 필드 재사용
         return result;
     }
 }
