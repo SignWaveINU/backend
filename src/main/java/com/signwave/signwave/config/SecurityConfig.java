@@ -2,6 +2,7 @@ package com.signwave.signwave.config;
 
 import com.signwave.signwave.jwt.JwtAuthenticationFilter;
 import com.signwave.signwave.jwt.JwtTokenProvider;
+import com.signwave.signwave.repository.MemberRepository;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.security.SecuritySchemes;
@@ -20,6 +21,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     private final JwtTokenProvider jwtTokenProvider;
+    private final MemberRepository memberRepository; // ✅ 추가
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -30,11 +32,13 @@ public class SecurityConfig {
                                 "/swagger-ui/**",
                                 "/v3/api-docs/**",
                                 "/auth/**"
-                                ).permitAll()
+                        ).permitAll()
                         .anyRequest().authenticated()
                 )
-                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),
-                        UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(
+                        new JwtAuthenticationFilter(jwtTokenProvider, memberRepository), // ✅ 두 인자 전달
+                        UsernamePasswordAuthenticationFilter.class
+                )
                 .build();
     }
 
