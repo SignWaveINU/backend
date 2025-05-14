@@ -16,6 +16,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.security.core.Authentication;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/history")
@@ -47,6 +48,19 @@ public class TranslationHistoryController {
         List<TranslationHistoryResponse> response = historyService.getFavoriteHistoriesByMember(member);
         return ResponseEntity.ok(response);
     }
+
+    @DeleteMapping("/{historyId}")
+    @Operation(summary = "번역기록 삭제", description = "로그인한 사용자의 번역기록을 삭제합니다.")
+    public ResponseEntity<Map<String, String>> deleteHistory(
+            @PathVariable Long historyId,
+            Authentication authentication) {
+
+        Member member = (Member) authentication.getPrincipal();
+        historyService.deleteHistory(historyId, member);
+
+        return ResponseEntity.ok(Map.of("message", "번역기록이 삭제되었습니다."));
+    }
+
 
 
 }
