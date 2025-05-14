@@ -48,4 +48,16 @@ public class TranslationHistoryService {
                 .toList();
     }
 
+    @Transactional
+    public void deleteHistory(Long historyId, Member member) {
+        TranslationHistory history = historyRepository.findById(historyId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 번역기록이 존재하지 않습니다."));
+
+        if (!history.getMember().getId().equals(member.getId())) {
+            throw new IllegalArgumentException("해당 번역기록을 삭제할 권한이 없습니다.");
+        }
+
+        historyRepository.delete(history);
+    }
+
 }
