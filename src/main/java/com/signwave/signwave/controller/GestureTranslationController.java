@@ -18,16 +18,12 @@ public class GestureTranslationController {
     private final GestureTranslationService translationService;
 
     @PostMapping
-    @Operation(summary = "제스처 → 자연어 문장 변환", description = "제스처 시퀀스를 입력받아 FastAPI로 전송 후 자연어 문장을 반환합니다.")
+    @Operation(summary = "제스처 → 자연어 문장 변환", description = "제스처 시퀀스를 입력받아 FastAPI로 전송 후 자연어 문장과 음성(mp3) URL을 반환합니다.")
     public ResponseEntity<GestureTranslationResponse> translate(
             @RequestBody GestureSequenceRequest request
     ) {
-        // FastAPI 호출 결과 문장 얻기
-        String sentence = translationService.getTranslatedSentence(request.getSequence());
-
-        // 응답 객체 구성 후 반환
-        GestureTranslationResponse response = new GestureTranslationResponse();
-        response.setSentence(sentence);
+        // 문장 + audioUrl 포함된 응답 받기
+        GestureTranslationResponse response = translationService.getTranslatedSentence(request.getSequence());
         return ResponseEntity.ok(response);
     }
 }

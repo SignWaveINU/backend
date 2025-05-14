@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface TranslationHistoryRepository extends JpaRepository<TranslationHistory, Long> {
     List<TranslationHistory> findByMember(Member member);
-    List<TranslationHistory> findByMemberAndIsFavoriteTrueOrderByCreatedAtDesc(Member member);
+    List<TranslationHistory> findByMemberAndIsFavoriteTrueOrderByCreatedTimeDesc(Member member);
 }
