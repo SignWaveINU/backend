@@ -1,5 +1,7 @@
 package com.signwave.signwave.jwt;
 
+import com.signwave.signwave.entity.Member;
+import com.signwave.signwave.repository.MemberRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,6 +20,7 @@ import java.util.List;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtTokenProvider tokenProvider;
+    private final MemberRepository memberRepository;
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
@@ -36,10 +39,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if (token != null && tokenProvider.validateToken(token)) {
             String email = tokenProvider.getEmailFromToken(token);
 
-            // ROLE_USER 권한을 가진 인증 객체 생성
+            // DB에서 Member 조회
+            Member member = memberRepository.findByEmail(email)
+                    .orElseThrow(() -> new IllegalArgumentException("이메일이 존재하지 않습니다."));
+
+            // Member 엔티티를 principal로 설정
             UsernamePasswordAuthenticationToken authentication =
                     new UsernamePasswordAuthenticationToken(
-                            email,
+                            member,
                             null,
                             List.of(new SimpleGrantedAuthority("ROLE_USER"))
                     );

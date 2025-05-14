@@ -55,4 +55,3 @@ Android 앱과 연동되어 번역 결과 저장, 즐겨찾기, 회원 기능 �
 ![image](https://github.com/user-attachments/assets/70ef5a69-4276-4d77-a865-80f303f3664e)
 
 
-

@@ -40,4 +40,12 @@ public class TranslationHistoryService {
                 .map(TranslationHistoryResponse::fromEntity)
                 .toList();
     }
+
+    @Transactional(readOnly = true)
+    public List<TranslationHistoryResponse> getFavoriteHistoriesByMember(Member member) {
+        return historyRepository.findByMemberAndIsFavoriteTrueOrderByCreatedTimeDesc(member).stream()
+                .map(TranslationHistoryResponse::fromEntity)
+                .toList();
+    }
+
 }

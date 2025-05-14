@@ -35,11 +35,18 @@ public class TranslationHistoryController {
     @GetMapping
     @Operation(summary = "번역기록 전체 조회", description = "로그인한 사용자의 전체 번역기록을 조회합니다.")
     public ResponseEntity<List<TranslationHistoryResponse>> getAllHistories(Authentication authentication) {
-        String email = (String) authentication.getPrincipal(); // principal은 String으로 설정되어 있음
-        Member member = memberRepository.findByEmail(email)
-                .orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
+        Member member = (Member) authentication.getPrincipal();
         List<TranslationHistoryResponse> response = historyService.getAllHistoriesByMember(member);
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/favorites")
+    @Operation(summary = "즐겨찾기 번역기록 조회", description = "로그인한 사용자의 즐겨찾기된 번역기록을 최신순으로 조회합니다.")
+    public ResponseEntity<List<TranslationHistoryResponse>> getFavoriteHistories(Authentication authentication) {
+        Member member = (Member) authentication.getPrincipal();
+        List<TranslationHistoryResponse> response = historyService.getFavoriteHistoriesByMember(member);
+        return ResponseEntity.ok(response);
+    }
+
 
 }
