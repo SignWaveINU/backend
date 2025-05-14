@@ -21,7 +21,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     private final JwtTokenProvider jwtTokenProvider;
-    private final MemberRepository memberRepository; // ✅ 추가
+    private final MemberRepository memberRepository; /
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
