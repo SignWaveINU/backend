@@ -28,10 +28,10 @@ public class GestureTranslationService {
     private final SignLanguageTranslationRepository translationRepo;
     private final TranslationHistoryRepository historyRepo;
     private final MemberRepository memberRepository;
-    private final S3Uploader s3Uploader; // ✅ S3에 업로드하기 위한 유틸 클래스 주입
+    private final S3Uploader s3Uploader; // S3에 업로드하기 위한 유틸 클래스 주입
 
     @Value("${ai.url}")
-    private String aiUrl; // ✅ FastAPI 서버 주소
+    private String aiUrl; // FastAPI 서버 주소
 
     /**
      * 현재 로그인된 사용자의 이메일을 바탕으로 제스처 시퀀스를 번역
@@ -49,14 +49,14 @@ public class GestureTranslationService {
      * S3에 업로드한 URL을 포함한 응답을 구성하여 반환
      */
     public GestureTranslationResponse translateAndSave(List<List<Float>> sequence, Member member) {
-        // 🔹 FastAPI 요청 바디 구성
+        // FastAPI 요청 바디 구성
         Map<String, Object> body = Map.of("sequence", sequence);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<?> request = new HttpEntity<>(body, headers);
 
-        // 🔹 FastAPI 호출 (문장 + 음성 base64 반환)
+        // FastAPI 호출 (문장 + 음성 base64 반환)
         ResponseEntity<GestureTranslationResponse> response = restTemplate.postForEntity(
                 aiUrl + "/predict_gesture_and_translate",
                 request,
@@ -66,11 +66,11 @@ public class GestureTranslationService {
         String sentence = response.getBody().getSentence();
         String audioBase64 = response.getBody().getAudioUrl();
 
-        // 🔹 mp3 파일을 S3에 업로드하고 URL 획득
+        // mp3 파일을 S3에 업로드하고 URL 획득
         String filename = "tts/" + UUID.randomUUID() + ".mp3";
         String s3Url = s3Uploader.uploadBase64Audio(audioBase64, filename);
 
-        // 🔹 번역 결과 저장 (문장 + 음성 URL)
+        // 번역 결과 저장 (문장 + 음성 URL)
         SignLanguageTranslation translation = SignLanguageTranslation.builder()
                 .member(member)
                 .translatedText(sentence)
@@ -80,7 +80,7 @@ public class GestureTranslationService {
                 .build();
         translationRepo.save(translation);
 
-        // 🔹 번역 기록 저장
+        // 번역 기록 저장
         TranslationHistory history = TranslationHistory.builder()
                 .signLanguageTranslation(translation)
                 .member(member)
@@ -88,7 +88,7 @@ public class GestureTranslationService {
                 .build();
         historyRepo.save(history);
 
-        // 🔹 최종 응답 구성
+        // 최종 응답 구성
         GestureTranslationResponse result = new GestureTranslationResponse();
         result.setSentence(sentence);
         result.setAudioUrl(s3Url); // 실제로는 audioUrl이지만 기존 필드 재사용
