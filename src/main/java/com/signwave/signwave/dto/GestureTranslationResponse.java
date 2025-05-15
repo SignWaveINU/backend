@@ -14,5 +14,6 @@ public class GestureTranslationResponse {
     @JsonProperty("audio_base64")
     private String audioUrl;
 
+    private Long historyId;
 }
 
