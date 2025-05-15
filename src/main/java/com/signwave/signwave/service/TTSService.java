@@ -69,6 +69,7 @@ public class TTSService {
         GestureTranslationResponse result = new GestureTranslationResponse();
         result.setSentence(sentence);
         result.setAudioUrl(s3Url);
+        result.setHistoryId(history.getId());
         return result;
     }
 }
