@@ -25,12 +25,4 @@ public class Member extends BaseEntity{
     @Column(nullable = false)
     private String password;
 
-    @OneToMany(mappedBy = "member",fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<SignLanguageTranslation> translations;
-
-    @OneToMany(mappedBy = "member",fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<TranslationHistory> translationHistories;
-
-    @OneToMany(mappedBy = "member",fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<HospitalReservation> reservations;
 }
