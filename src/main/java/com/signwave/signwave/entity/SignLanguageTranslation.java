@@ -16,20 +16,12 @@ public class SignLanguageTranslation extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;
-
-    @Column(columnDefinition = "TEXT")
-    private String signLanguageInput;  // 수어 입력 데이터 (예: JSON 등)
-
     private String translatedText;
 
     private String audioUrl;
 
-    @Column(columnDefinition = "TEXT")
-    private String gestureSequence;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id", nullable = false)
+    private Member member;
 
-    @OneToMany(mappedBy = "signLanguageTranslation")
-    private List<TranslationHistory> histories;
 }
