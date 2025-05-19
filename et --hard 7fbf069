@@ -1,0 +1,37 @@
+[33m43efce5[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mrefactor/csv-gesture-upload[m[33m)[m HEAD@{0}: reset: moving to HEAD~1
+[33mfefeac1[m HEAD@{1}: reset: moving to HEAD~1
+[33mbb6ad5f[m HEAD@{2}: commit: refactor: TTSService에서 불필요한 필드 제거에 따른 SignLanguageTranslation 저장 로직 수정
+[33mfefeac1[m HEAD@{3}: commit: refactor: TranslationHistory 엔티티의 연관관계 수정 및 fetch 전략 변경
+[33m43efce5[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mrefactor/csv-gesture-upload[m[33m)[m HEAD@{4}: commit: refactor: SignLanguageTranslation 엔티티 구조 단순화 및 관계 정비
+[33mcbced3a[m HEAD@{5}: commit: refactor: Member 엔티티의 연관관계를 단방향으로 변경
+[33m487a346[m[33m ([m[1;31morigin/feat/tts-db-save-22[m[33m, [m[1;32mfeat/tts-db-save-22[m[33m)[m HEAD@{6}: checkout: moving from feat/tts-db-save-22 to refactor/csv-gesture-upload
+[33m487a346[m[33m ([m[1;31morigin/feat/tts-db-save-22[m[33m, [m[1;32mfeat/tts-db-save-22[m[33m)[m HEAD@{7}: commit: fix: TTS 변환 후 historyId 반환 누락으로 즐겨찾기 등록 실패 수정
+[33m7fbf069[m HEAD@{8}: Branch: renamed refs/heads/feature/tts-sb-save-22 to refs/heads/feat/tts-db-save-22
+[33m7fbf069[m HEAD@{10}: commit: feat : [fix] TTSController에서 인증된 사용자 정보(Member) 전달하도록 수정
+[33m2d799ae[m HEAD@{11}: commit: feat : TTS 변환 결과 DB에 저장 및 S3 업로드 기능 추가
+[33m43462fa[m[33m ([m[1;31morigin/develop[m[33m, [m[1;32mdevelop[m[33m)[m HEAD@{12}: checkout: moving from develop to feature/tts-sb-save-22
+[33m43462fa[m[33m ([m[1;31morigin/develop[m[33m, [m[1;32mdevelop[m[33m)[m HEAD@{13}: checkout: moving from feat/tts-s3-upload-17 to develop
+[33m09f6000[m[33m ([m[1;31morigin/feat/tts-s3-upload-17[m[33m, [m[1;32mfeat/tts-s3-upload-17[m[33m)[m HEAD@{14}: checkout: moving from develop to feat/tts-s3-upload-17
+[33m43462fa[m[33m ([m[1;31morigin/develop[m[33m, [m[1;32mdevelop[m[33m)[m HEAD@{15}: pull origin develop: Fast-forward
+[33mde138d9[m HEAD@{16}: checkout: moving from main to develop
+[33m79a0bc9[m[33m ([m[1;32mmain[m[33m)[m HEAD@{17}: checkout: moving from feat/tts-s3-upload-17 to main
+[33m09f6000[m[33m ([m[1;31morigin/feat/tts-s3-upload-17[m[33m, [m[1;32mfeat/tts-s3-upload-17[m[33m)[m HEAD@{18}: commit: feat : 문장을 TTS 음성으로 변환하는 TtsController 추가
+[33ma2e6e0f[m HEAD@{19}: commit: feat TTS 변환 기능 서비스 클래스(TtsService) 구현
+[33m5f11e95[m HEAD@{20}: commit: feat: 제스처 시퀀스를 문장으로 변환하는 컨트롤러 추가
+[33m414544f[m HEAD@{21}: commit: feat : 제스처 시퀀스를 문장으로 변환하는 컨트롤러 추가
+[33mfcc1793[m HEAD@{22}: commit: feat:제스처 시퀀스를 문장으로 변환하는 서비스 클래스 구현
+[33m18adb7f[m HEAD@{23}: commit: [feat] 문장 응답을 위한 SentenceResponse DTO 생성
+[33m60f3c04[m HEAD@{24}: checkout: moving from feat/delete-history-18 to feat/tts-s3-upload-17
+[33meeae7af[m[33m ([m[1;31morigin/feat/delete-history-18[m[33m, [m[1;32mfeat/delete-history-18[m[33m)[m HEAD@{25}: Branch: renamed refs/heads/feature/delete-history-18 to refs/heads/feat/delete-history-18
+[33meeae7af[m[33m ([m[1;31morigin/feat/delete-history-18[m[33m, [m[1;32mfeat/delete-history-18[m[33m)[m HEAD@{27}: commit: feat: 번역기록 삭제 API 컨트롤러 추가
+[33mba76110[m HEAD@{28}: commit: feat: 로그인한 사용자 본인만 번역기록을 삭제할 수 있도록 서비스 로직 추가
+[33m60f3c04[m HEAD@{29}: checkout: moving from feat/tts-s3-upload-17 to feature/delete-history-18
+[33m60f3c04[m HEAD@{30}: commit: fix: Authentication principal을 Member로 캐스팅하여 번역기록 조회 오류 수정
+[33me3daacf[m HEAD@{31}: commit: fix: HospitalReservationController에서 Authentication principal 캐스팅 오류 수정
+[33mad17618[m HEAD@{32}: commit: fix: FastAPI audio_base64 필드 매핑 오류 수정
+[33m3e06e8a[m HEAD@{33}: commit: fix: SecurityContext에서 Member 객체를 직접 꺼내도록 수정하여 인증된 사용자 식별 오류 해결
+[33md669176[m HEAD@{34}: commit: fix: JwtAuthenticationFilter 생성자 인자 누락으로 인한 보안 필터 설정 오류 수정
+[33m46dc3a3[m HEAD@{35}: commit: fix: GestureTranslationService에서 audioBase64 audioUrl 필드명 변경 반영
+[33mf7e4d9b[m HEAD@{36}: commit: refactor: GestureTranslationResponse의 audioBase64 필드를 audioUrl로 변경
+[33m81eba1f[m HEAD@{37}: commit: fix: JWT 필터에서 사용자 이메일 대신 Member 엔티티를 SecurityContext에 저장
+[33m096efdb[m HEAD@{38}: commit: fix: createdAt createdTime 필드명 수정에 맞춰 Repository 메서드명 변경

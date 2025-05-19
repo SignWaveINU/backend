@@ -53,8 +53,6 @@ public class TTSService {
                 .member(member)
                 .translatedText(sentence)
                 .audioUrl(s3Url)
-                .signLanguageInput("입력 없음")
-                .gestureSequence("시퀀스 없음")
                 .build();
         translationRepo.save(translation);
 
