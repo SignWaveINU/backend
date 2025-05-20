@@ -60,4 +60,17 @@ public class TranslationHistoryService {
         historyRepository.delete(history);
     }
 
+    @Transactional
+    public FavoriteResponse unmarkFavorite(Long historyId) {
+        TranslationHistory history = historyRepository.findById(historyId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 ID의 번역기록이 존재하지 않습니다."));
+
+        history.setFavorite(false); // 즐겨찾기 해제
+        TranslationHistory updated = historyRepository.save(history);
+
+        return new FavoriteResponse(updated.getMember().getId());
+    }
+
+
+
 }
