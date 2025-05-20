@@ -61,6 +61,11 @@ public class TranslationHistoryController {
         return ResponseEntity.ok(Map.of("message", "번역기록이 삭제되었습니다."));
     }
 
-
+    @DeleteMapping("/favorite/{id}")
+    @Operation(summary = "즐겨찾기 해제", description = "특정 번역기록의 즐겨찾기를 해제합니다.")
+    public ResponseEntity<FavoriteResponse> removeFavorite(@PathVariable Long id) {
+        FavoriteResponse response = historyService.unmarkFavorite(id);
+        return ResponseEntity.ok(response);
+    }
 
 }
