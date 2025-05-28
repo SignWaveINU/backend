@@ -28,6 +28,22 @@ public class DummyDataLoader implements CommandLineRunner {
                     .build();
             memberRepository.save(member);
 
+            for (int j = 1; j <= 10; j++) {
+                SignLanguageTranslation translation = SignLanguageTranslation.builder()
+                        .member(member)
+                        .translatedText("문장 예시 " + j)
+                        .audioUrl("https://mock-url.com/audio" + j + ".mp3")
+                        .build();
+                translationRepository.save(translation);
+
+                TranslationHistory history = TranslationHistory.builder()
+                        .member(member)
+                        .signLanguageTranslation(translation)
+                        .isFavorite(j % 3 == 0) // 3개 중 하나만 즐겨찾기로
+                        .build();
+                historyRepository.save(history);
+            }
+
         }
     }
 }
