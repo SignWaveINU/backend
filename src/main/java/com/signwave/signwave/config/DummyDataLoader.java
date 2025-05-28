@@ -20,6 +20,10 @@ public class DummyDataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        if (memberRepository.count() > 0) {
+            return; // 이미 데이터가 있으면 실행 안 함
+        }
+
         for (int i = 1; i <= 10000; i++) {
             Member member = Member.builder()
                     .email("user" + i + "@example.com")
