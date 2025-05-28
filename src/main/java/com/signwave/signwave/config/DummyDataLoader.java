@@ -44,6 +44,15 @@ public class DummyDataLoader implements CommandLineRunner {
                 historyRepository.save(history);
             }
 
+            for (int k = 1; k <= 2; k++) {
+                HospitalReservation reservation = HospitalReservation.builder()
+                        .member(member)
+                        .hospitalName("가상병원 " + k)
+                        .reservationDate(LocalDate.now().plusDays(k))
+                        .reservationTime(LocalDateTime.now().plusHours(k))
+                        .build();
+                reservationRepository.save(reservation);
+            }
         }
     }
 }
